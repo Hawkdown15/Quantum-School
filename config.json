@@ -1,0 +1,183 @@
+{
+  "_readme": "Per-channel defaults for the nfm-qs-* skills. Add a channel by copying the quantum-school block. Empty string / null = not configured yet: the skill must ask, never guess.",
+  "default_channel": "quantum-school",
+  "channels": {
+    "quantum-school": {
+      "display_name": "Quantum School",
+      "handle": "@quantumschool45",
+      "channel_id": "UCixcbEF0Pr2W4Hx65DUcxnA",
+      "studio_url": "https://studio.youtube.com/channel/UCixcbEF0Pr2W4Hx65DUcxnA",
+      "timezone": "Asia/Kolkata",
+      "vidiq_server": "vidiq-qs",
+      "chrome_browser": "Browser 1",
+      "exam_class": "JNVST Class 6",
+      "subjects": {
+        "EVS": {
+          "enabled": true,
+          "playlist_name": "EVS • Shorts",
+          "playlist_id": "PLJiwh-0GtG6Y",
+          "long_playlist_name": "EVS full video",
+          "long_playlist_id": "PLUgNPn6Udvbs",
+          "slots": {
+            "start": "17:00",
+            "end": "23:00",
+            "interval_min": 60
+          },
+          "title_suffix": " | JNVST EVS #shorts",
+          "desc_subject_label": "EVS (पर्यावरण अध्ययन)",
+          "subject_hashtag": "#NavodayaEVS",
+          "base_tags": [
+            "jnvst class 6",
+            "navodaya evs",
+            "jnvst evs",
+            "navodaya class 6",
+            "navodaya entrance exam",
+            "jnvst 2027",
+            "jawahar navodaya vidyalaya",
+            "navodaya 2027",
+            "पर्यावरण अध्ययन",
+            "quantum school"
+          ],
+          "related_video_id": "Y-cqZo-FCI8",
+          "related_video_search": "Transportation Challenge",
+          "related_video_title": "Will You Pass? Navodaya 2027 Transportation Challenge",
+          "alt_playlists": [
+            {
+              "name": "EVS For Navodaya and Sanik",
+              "id": "PLf5fG5vbkbqo"
+            }
+          ]
+        },
+        "Maths": {
+          "enabled": true,
+          "playlist_name": "Math • Shorts",
+          "playlist_id": "PLNkmnaUMEU24",
+          "playlist_note": "TWO playlists are named 'Math • Shorts'. Use PLNkmnaUMEU24 (the first one). Never PLLXulWsjFbDI.",
+          "long_playlist_name": "Math Full Video",
+          "long_playlist_id": "PLF4nXJkJuTq0",
+          "slots": {
+            "start": "17:30",
+            "end": "23:30",
+            "interval_min": 60
+          },
+          "title_suffix": " | JNVST Maths #shorts",
+          "desc_subject_label": "गणित (Arithmetic)",
+          "subject_hashtag": "#NavodayaMaths",
+          "base_tags": [
+            "jnvst class 6",
+            "navodaya class 6",
+            "navodaya entrance exam",
+            "jnvst 2027",
+            "navodaya maths",
+            "jnvst maths",
+            "jawahar navodaya vidyalaya",
+            "navodaya 2027",
+            "नवोदय गणित",
+            "quantum school"
+          ],
+          "related_video_id": "-QLsPTrQMys",
+          "related_video_search": "JNVST Math Problems? | Practice Test",
+          "related_video_title": "Can You Solve These JNVST Math Problems? | Practice Test",
+          "alt_playlists": [
+            {
+              "name": "Maths for Navoday",
+              "id": "PLOuafyX3HWlc"
+            }
+          ]
+        },
+        "Hindi": {
+          "enabled": false,
+          "playlist_name": "Hindi • Shorts",
+          "playlist_id": "PLFly268jopXM",
+          "slots": {
+            "start": "",
+            "end": "",
+            "interval_min": 60
+          },
+          "title_suffix": " | JNVST Hindi #shorts",
+          "desc_subject_label": "हिंदी (भाषा)",
+          "subject_hashtag": "#NavodayaHindi",
+          "base_tags": [],
+          "related_video_id": "",
+          "related_video_search": "",
+          "related_video_title": "",
+          "alt_playlists": []
+        },
+        "MAT": {
+          "enabled": false,
+          "playlist_name": "MAT • Shorts",
+          "playlist_id": "PLWzGLTneiEe4",
+          "slots": {
+            "start": "",
+            "end": "",
+            "interval_min": 60
+          },
+          "title_suffix": " | JNVST MAT #shorts",
+          "desc_subject_label": "MAT (मानसिक योग्यता)",
+          "subject_hashtag": "#NavodayaMAT",
+          "base_tags": [],
+          "related_video_id": "",
+          "related_video_search": "",
+          "related_video_title": "",
+          "alt_playlists": []
+        }
+      },
+      "seo": {
+        "title_language": "Hindi-first: the hook is a Hindi question/statement; English only for exam/subject words",
+        "title_max_chars": 70,
+        "title_must_end_with": "#shorts",
+        "description_template": "{hook}\nइस short में सीखें: {learn}, JNVST Class 6 {subject_label} के अंदाज़ में, स्टेप बाय स्टेप।\n\nनवोदय प्रवेश परीक्षा (JNVST Class 6) की तैयारी के लिए रोज़ ऐसे ही सवाल।\n👉 Subscribe करें और follow करें @quantumschool45\n\n#JNVST #NavodayaVidyalaya #QuantumSchool {subject_hashtag} #shorts",
+        "hashtags_fixed": [
+          "#JNVST",
+          "#NavodayaVidyalaya",
+          "#QuantumSchool",
+          "#shorts"
+        ],
+        "tags_min": 10,
+        "tags_max": 15,
+        "tags_max_chars": 500,
+        "tags_rule": "base_tags (10) + 1 Hindi topic tag + 1 English topic tag = 12",
+        "never_mix_classes": "Class 6 and Class 9 are different exams. Never put both in one title/description/tag set.",
+        "previous_papers_label": "Never write PYQ / previous year paper. Use स्मृति-आधारित or पैटर्न-आधारित.",
+        "banned_phrases": [
+          "PYQ",
+          "previous year paper",
+          "Free Level Check",
+          "free test",
+          "free level check",
+          "guaranteed selection",
+          "100% selection",
+          "Class 9"
+        ]
+      },
+      "interval_choices_min": [
+        60,
+        30,
+        120
+      ],
+      "whatsapp_channel": "https://whatsapp.com/channel/0029Vb8mAoZ1HspxXVQ0jE23"
+    },
+    "navodayans-talk": {
+      "display_name": "Navodayans Talk",
+      "handle": "@navodayanstalk",
+      "channel_id": "",
+      "studio_url": "",
+      "timezone": "Asia/Kolkata",
+      "vidiq_server": "vidiq-nvt",
+      "chrome_browser": "Browser 1",
+      "subjects": {},
+      "seo": {}
+    },
+    "the-social-animals": {
+      "display_name": "The Social Animals",
+      "handle": "@TSocialAnimals",
+      "channel_id": "",
+      "studio_url": "",
+      "timezone": "Asia/Kolkata",
+      "vidiq_server": "vidiq-tsa",
+      "chrome_browser": "Browser 1",
+      "subjects": {},
+      "seo": {}
+    }
+  }
+}
