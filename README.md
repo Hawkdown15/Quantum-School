@@ -7,7 +7,7 @@ A Claude Code skill for **Quantum School (@quantumschool45)**. It turns unlisted
 ## Install
 
 ```bash
-git clone <this-repo-url> ~/.claude/skills/nfm-qs-shorts-scheduler
+git clone https://github.com/Hawkdown15/Quantum-School.git ~/.claude/skills/nfm-qs-shorts-scheduler
 ```
 Restart Claude Code. Typing `/nfm` should show the skill.
 
