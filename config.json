@@ -24,7 +24,7 @@
             "interval_min": 60
           },
           "title_suffix": " | JNVST EVS #shorts",
-          "desc_subject_label": "EVS (पर्यावरण अध्ययन)",
+          "desc_subject_label": "EVS (Paryavaran Adhyayan)",
           "subject_hashtag": "#NavodayaEVS",
           "base_tags": [
             "jnvst class 6",
@@ -46,7 +46,8 @@
               "name": "EVS For Navodaya and Sanik",
               "id": "PLf5fG5vbkbqo"
             }
-          ]
+          ],
+          "keyword_tail": "JNVST EVS questions, navodaya entrance exam, class 5 EVS"
         },
         "Maths": {
           "enabled": true,
@@ -61,7 +62,7 @@
             "interval_min": 60
           },
           "title_suffix": " | JNVST Maths #shorts",
-          "desc_subject_label": "गणित (Arithmetic)",
+          "desc_subject_label": "Ganit (Arithmetic)",
           "subject_hashtag": "#NavodayaMaths",
           "base_tags": [
             "jnvst class 6",
@@ -83,7 +84,8 @@
               "name": "Maths for Navoday",
               "id": "PLOuafyX3HWlc"
             }
-          ]
+          ],
+          "keyword_tail": "JNVST maths questions, navodaya entrance exam, class 5 maths"
         },
         "Hindi": {
           "enabled": false,
@@ -95,13 +97,14 @@
             "interval_min": 60
           },
           "title_suffix": " | JNVST Hindi #shorts",
-          "desc_subject_label": "हिंदी (भाषा)",
+          "desc_subject_label": "Hindi (Bhasha)",
           "subject_hashtag": "#NavodayaHindi",
           "base_tags": [],
           "related_video_id": "",
           "related_video_search": "",
           "related_video_title": "",
-          "alt_playlists": []
+          "alt_playlists": [],
+          "keyword_tail": "JNVST hindi questions, navodaya entrance exam, class 5 hindi"
         },
         "MAT": {
           "enabled": false,
@@ -113,20 +116,20 @@
             "interval_min": 60
           },
           "title_suffix": " | JNVST MAT #shorts",
-          "desc_subject_label": "MAT (मानसिक योग्यता)",
+          "desc_subject_label": "MAT (Mansik Yogyata)",
           "subject_hashtag": "#NavodayaMAT",
           "base_tags": [],
           "related_video_id": "",
           "related_video_search": "",
           "related_video_title": "",
-          "alt_playlists": []
+          "alt_playlists": [],
+          "keyword_tail": "JNVST MAT questions, navodaya entrance exam, class 5 reasoning"
         }
       },
       "seo": {
-        "title_language": "Hindi-first: the hook is a Hindi question/statement; English only for exam/subject words",
+        "title_language": "Hindi in ROMAN script (Hinglish), not Devanagari (Raj, 28 Oct 2026). Title = 1 emoji + a specific challenge/curiosity hook built from the real question (numbers, names) + title_suffix.",
         "title_max_chars": 70,
         "title_must_end_with": "#shorts",
-        "description_template": "{hook}\nइस short में सीखें: {learn}, JNVST Class 6 {subject_label} के अंदाज़ में, स्टेप बाय स्टेप।\n\nनवोदय प्रवेश परीक्षा (JNVST Class 6) की तैयारी के लिए रोज़ ऐसे ही सवाल।\n👉 Subscribe करें और follow करें @quantumschool45\n\n#JNVST #NavodayaVidyalaya #QuantumSchool {subject_hashtag} #shorts",
         "hashtags_fixed": [
           "#JNVST",
           "#NavodayaVidyalaya",
@@ -148,14 +151,34 @@
           "guaranteed selection",
           "100% selection",
           "Class 9"
-        ]
+        ],
+        "hook_frames": [
+          "challenge: '... = ? 10 second mein!' / 'Kya aap sahi karoge?'",
+          "curiosity: 'X udta hai, phir bhi pakshi kyun nahin?'",
+          "mistake: '... Simplify karna mat bhoolna' / 'Sabse aasaan, phir bhi galti!'",
+          "exam: '28 Nov se pehle yeh pakka karo' (only while the exam date is ahead)"
+        ],
+        "cta_top": "👨‍👩‍👦 Bachche ko Navodaya bhejna hai? Use wahi padhayein jo khud Navodaya se padhe hain!\nAjeet Bhaiya & Shivam Bhaiya (Navodaya alumni) ke saath Class 6 JNVST ki poori taiyari — sirf Quantum School par.\n\n📲 Abhi contact karein (WhatsApp): 85272 83511\n👉 https://wa.me/918527283511",
+        "cta_note": "Approved by Raj 28 Oct 2026 (option B, parent-emotion). Always first in the description: Shorts show only the first lines and links there are NOT clickable, so the number is also written as plain digits.",
+        "whatsapp_channel_line": "📢 Free updates ke liye WhatsApp Channel join karein:\n{link}",
+        "description_blocks": [
+          "{cta}",
+          "{hook}\nIs short mein seekhein: {learn}, JNVST Class 6 {subject_label} style mein, step by step.",
+          "Navodaya Pravesh Pariksha (JNVST Class 6) ki taiyari ke liye roz aise hi sawaal.\n👉 Subscribe karein aur follow karein @quantumschool45",
+          "{extra}",
+          "[{keywords}]",
+          "#JNVST #NavodayaVidyalaya #QuantumSchool {subject_hashtag} #shorts"
+        ],
+        "description_block_gap_lines": 2,
+        "description_format_note": "Raj, 28 Oct 2026: 2-line blocks separated by 2 blank lines; CTA first; [keywords] block, then hashtags as the LAST line. Empty blocks are dropped."
       },
       "interval_choices_min": [
         60,
         30,
         120
       ],
-      "whatsapp_channel": "https://whatsapp.com/channel/0029Vb8mAoZ1HspxXVQ0jE23"
+      "whatsapp_channel": "https://whatsapp.com/channel/0029Vb8mAoZ1HspxXVQ0jE23",
+      "related_rule": "Pick the related video PER SHORT: the published long video whose topic matches the short (meta.tsv columns related_id + related_search). The subject default is only the fallback. Long videos bring the subs; shorts bring ~0."
     },
     "navodayans-talk": {
       "display_name": "Navodayans Talk",

@@ -2,7 +2,10 @@
 """Build the full plan (title/description/tags/slot/playlist) from meta.tsv and print the approval table.
 
 meta.tsv columns (tab-separated, header row):
-  id  kind(short|long)  subject  old_title  hook  learn  tag_hi  tag_en
+  id  kind(short|long)  subject  old_title  hook  learn  tag_hi  tag_en  [related_id  related_search  keywords]
+  - keywords (optional): comma list for the [..] block; blank = tag_en, tag_hi, learn + subject keyword_tail.
+  - related_id/related_search (optional): the topic-matched published long video for this short;
+    blank = the subject's default from config.
   - subject must be a configured+enabled subject, else the row is SKIPPED and reported.
   - kind=long rows get metadata only: no slot, no playlist, no privacy change.
 
@@ -29,7 +32,7 @@ def main():
     ap.add_argument("--playlist", action="append", default=[], help="SUBJ=PLAYLIST_ID")
     ap.add_argument("--extra-tags", default="", help="comma list added to every video's tags")
     ap.add_argument("--extra-hashtags", default="", help="space/comma list added before #shorts")
-    ap.add_argument("--desc-extra", default="", help="extra line added above the hashtag line")
+    ap.add_argument("--desc-extra", default="", help="extra block (e.g. the WhatsApp Channel line); \\n = line break")
     ap.add_argument("--now")
     ap.add_argument("--busy", help="file of already-scheduled UTC publishAt values to avoid")
     ap.add_argument("--out", default="plan.json")
@@ -76,14 +79,21 @@ def main():
         item = {"videoId": r["id"], "kind": r.get("kind") or "short", "subject": subj, "old_title": r.get("old_title", "")}
         if a.mode in ("both", "optimize"):
             title = r["hook"].strip() + conf["title_suffix"]
-            desc = seo["description_template"].format(hook=r["hook"].strip(), learn=r["learn"].strip(),
-                                                      subject_label=conf["desc_subject_label"], subject_hashtag=conf["subject_hashtag"])
-            if a.desc_extra.strip():
-                head, sep, hashline = desc.rpartition("\n\n")
-                desc = f"{head}\n{a.desc_extra.strip()}{sep}{hashline}"
+            kw = (r.get("keywords") or "").strip()
+            if not kw:
+                learn_kw = re.sub(r"[()]", "", r["learn"]).strip()
+                parts = [r["tag_en"].strip(), r["tag_hi"].strip()]
+                if not any(p_.lower() in learn_kw.lower() for p_ in parts if p_): parts.append(learn_kw)
+                kw = ", ".join(dict.fromkeys(x for x in parts if x))
+            kw = ", ".join(x for x in [kw, conf.get("keyword_tail", "")] if x)
             extra_h = [h if h.startswith("#") else "#" + h for h in re.split(r"[\s,]+", a.extra_hashtags) if h.strip("#")]
-            if extra_h:
-                desc = desc.replace(" #shorts", " " + " ".join(extra_h) + " #shorts", 1) if desc.endswith("#shorts") else desc + " " + " ".join(extra_h)
+            fill = dict(cta=seo.get("cta_top", ""), hook=r["hook"].strip(), learn=r["learn"].strip(), keywords=kw,
+                        extra=a.desc_extra.replace("\\n", "\n").strip(), subject_label=conf["desc_subject_label"],
+                        subject_hashtag=" ".join([conf["subject_hashtag"]] + extra_h))
+            gap = "\n" * (seo.get("description_block_gap_lines", 1) + 1)
+            blocks = [b.format(**fill).strip() for b in seo["description_blocks"]]
+            desc = gap.join(b.replace("\n\n", gap) for b in blocks if b and b != "[]")
+            if len(desc) > 5000: errors.append((r["id"], f"description {len(desc)} chars"))
             extra_t = [t.strip() for t in a.extra_tags.split(",") if t.strip()]
             tags = list(dict.fromkeys(conf["base_tags"] + [r["tag_hi"].strip(), r["tag_en"].strip()] + extra_t))
             tags = [t for t in tags if t]
@@ -95,6 +105,9 @@ def main():
             blob = (title + " " + desc + " " + " ".join(tags)).lower()
             for b in banned:
                 if re.search(r"(?<!\w)" + re.escape(b) + r"(?!\w)", blob): errors.append((r["id"], f"banned phrase '{b}'"))
+        if item["kind"] == "short":
+            item["related_video_id"] = (r.get("related_id") or "").strip() or conf.get("related_video_id", "")
+            item["related_video_search"] = (r.get("related_search") or "").strip() or conf.get("related_video_search", "")
         if r["id"] in slot_map:
             loc, utc = slot_map[r["id"]]
             item.update(publishAt=utc, ist=loc.strftime("%d %b %H:%M"),
@@ -108,11 +121,11 @@ def main():
     Path(a.out).write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"channel={key} mode={a.mode} start={start} planned={len(plan)} skipped={len(skipped)} -> {a.out}\n")
-    print("| # | ID | Subj | Old title → New title | Slot (local) | Playlist |\n|---|---|---|---|---|---|")
+    print("| # | ID | Subj | Old title → New title | Slot (local) | Playlist | Related |\n|---|---|---|---|---|---|---|")
     for n, i in enumerate(plan, 1):
         old = (i["old_title"] or "—")[:40]
         new = i.get("title", "(unchanged)").replace("|", "\\|")
-        print(f"| {n} | {i['videoId']} | {i['subject']} | {old} → {new} | {i.get('ist', 'no change' if i['kind']=='long' else '—')} | {i.get('playlist_name', '—')} |")
+        print(f"| {n} | {i['videoId']} | {i['subject']} | {old} → {new} | {i.get('ist', 'no change' if i['kind']=='long' else '—')} | {i.get('playlist_name', '—')} | {i.get('related_video_id') or '—'} |")
     if skipped:
         print("\nSKIPPED:")
         for s in skipped: print(f"- {s[0]} ({s[1]}): {s[2]}")

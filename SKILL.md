@@ -68,13 +68,26 @@ Custom input can never override the Hard rules: banned phrases, never creating p
 2. Candidates: privacy `private`/`unlisted`, **no publishAt**, duration ≤ 3 min (short), filtered by Raj's selection. **Already public videos: never touch their privacy.** Long videos only go in if the mode includes optimize.
 3. Write `busy.txt` with every existing future publishAt (UTC), one per line, so no two videos share a slot.
 
+## Step 1b: Research what works (read-only, when Raj asks or once a month)
+
+- QS: `vidiq_channel_analytics` report=top_videos (views, engagedViews, averageViewPercentage) for the last ~60 days, then `vidiq_get_videos_by_ids` on the top shorts to read their titles.
+- Competitor (default ALL ROUNDER BSS, `@AllRounderBSS`): `vidiq_channel_videos` short, popular=true and popular=false.
+- Write the findings to `research.md` in the run folder. What we found on 28 Oct 2026:
+  - Hooks built as a challenge, curiosity or "ye galti mat karna" beat flat question titles 1.5–3×.
+  - Shorts of 35 seconds or less loop to 60–120% average view percentage.
+  - BSS's 1M+ shorts are parent/offer shorts, so a parent CTA goes at the top of the description.
+  - Shorts bring about 0 subs, so link each short to a topic-matched long video.
+- Budget: transcripts cost 5 vidIQ credits each. ~110 transcripts ran the account dry on 28 Oct, so check `vidiq_balance` first and leave unfetched shorts for the next run.
+
 ## Step 2: Classify and draft (read-only, automatic)
 
 1. For each candidate, get `vidiq_video_transcript`. **Classify by what is taught, not by the old title** (old titles were dates). If the subject isn't clearly a configured, enabled subject (it's Hindi/MAT while disabled, mixed, or there's no transcript), **skip and report it**.
 2. **Check the answer.** If the teacher's spoken or chosen answer is wrong, hold the short back (don't schedule it) and list it in the report with wrong → correct. In the Oct 2026 run, 4 of 157 were wrong (cactus spines, Narmada→Ganga, 33.15, ₹120). Use on-screen options from the thumbnail (`https://i.ytimg.com/vi/<id>/hq720.jpg`, crop x 439–841) when the transcript is unclear.
 3. Skip duplicates, meaning the same question recorded twice. Keep the first and report the rest.
 4. Write `meta.tsv` (tab-separated, header row): `id kind subject old_title hook learn tag_hi tag_en`
-   - `hook`: a Hindi-first question or statement taken from the actual question, specific (numbers, names). Keep it short enough that hook + `title_suffix` ≤ 70 characters.
+   - `hook`: **Hindi in Roman script** (Raj, 28 Oct 2026). Start with 1 emoji, then a specific challenge or curiosity hook built from the actual question (numbers, names). Keep it short enough that hook + `title_suffix` ≤ 70 characters.
+   - Optional `related_id` / `related_search`: the topic-matched **published long video** for this short (e.g. every fractions short → "Master Fractions in One Shot"). Leave blank to use the subject default.
+   - Optional `keywords`: the `[…]` keyword block. Leave blank to auto-build it from the tags + `keyword_tail`.
    - `learn`: the concept in 2–5 Hindi words.
    - `tag_hi` / `tag_en`: one topic tag in each language.
    - Optional: `vidiq_keyword_research` on 1–2 head terms per subject, only to sanity-check tag wording.
@@ -88,7 +101,9 @@ python3 <skill>/scripts/plan.py meta.tsv --date <YYYY-MM-DD|auto> --mode <both|o
 
 - Exit code 1 means a validation error (title > 70 characters, no `#shorts`, tags outside 10–15 or over 500 characters, or a banned phrase: PYQ, Free Level Check, free test, Class 9, …). Fix `meta.tsv` and re-run. Never show Raj a failing plan.
 - **Playlist check:** make sure each `playlist_id` exists on the channel (Studio → Content → Playlists, `find` the links). If a name or ID isn't found, **ask. Never create a playlist.** Two playlists are named "Math • Shorts": always use `PLNkmnaUMEU24`.
-- Show the printed table (`# | ID | Subj | old → new title | slot | playlist`), plus the skipped and held-back list, and ask **one** question: approve all / change something.
+- **CTA first:** if `seo.cta_top` is new or Raj asks to change it, show 2–3 CTA variants (AskUserQuestion with previews) and lock the one he picks into config before building the plan.
+- Show **sample #1 in full** (title, description and tags exactly as they will be typed), then the table (`# | ID | Subj | old → new title | slot | playlist | related`), plus the skipped and held-back list. Ask **one** question: approve all / change something.
+- Description layout (config `description_blocks`): 2-line blocks separated by `description_block_gap_lines` (2) blank lines: CTA → contact → hook+learn → subscribe → WhatsApp Channel → `[keywords]` → hashtags (last).
 - After approval, **finish everything without further questions.** Only stop on a hard blocker: a missing playlist, a login wall, or the browser disconnecting.
 
 ## Step 4: Apply (writes)
